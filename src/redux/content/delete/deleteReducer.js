@@ -1,7 +1,7 @@
 import { DELETE_REQUEST, DELETE_SUCCESS, DELETE_ERROR } from "./deleteTyoes";
 const initialState = {
   loading: false,
-  data: null,
+  data: [],
   error: null,
 };
 
@@ -10,7 +10,12 @@ const deleteContentReducer = (state = initialState, action) => {
     case DELETE_REQUEST:
       return { ...state, loading: true };
     case DELETE_SUCCESS:
-      return { ...state, loading: false, data: action.payload };
+      // Remove the deleted item from the state
+      return {
+        ...state,
+        loading: false,
+        data: state.data.filter((item) => item.id !== action.payload), // Filter out the deleted item
+      };
     case DELETE_ERROR:
       return { ...state, loading: false, error: action.payload };
     default:

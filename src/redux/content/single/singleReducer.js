@@ -3,7 +3,7 @@ import { SINGLE_REQUEST, SINGLE_SUCCESS, SINGLE_FAILURE } from "./singleTypes";
 const initialState = {
   loading: false,
   data: {},
-  error: "",
+  error: null,
 };
 
 const singleReducer = (state = initialState, action) => {

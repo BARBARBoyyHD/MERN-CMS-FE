@@ -22,16 +22,18 @@ const deleteError = (error)=>{
     }
 }
 
-export const deleteContent = (id)=>{
-    return(dispatch)=>{
-        dispatch(deleteRequest())
-        axios.delete(`https://mern-cms-qrmg.vercel.app/api/v1/delete/content/${id}`)
-        .then((response)=>{
-            dispatch(deleteSuccess(response.data))
-            console.log(response.data);
+export const deleteContent = (id) => {
+    return (dispatch) => {
+      dispatch(deleteRequest(id));
+      return axios // Return the promise
+        .delete(`https://mern-cms-qrmg.vercel.app/api/v1/delete/content/${id}`)
+        .then((response) => {
+          console.log("Delete response:", response.data);
+          dispatch(deleteSuccess(id)); // Pass the deleted item's ID
         })
-        .catch((error)=>{
-            dispatch(deleteError(error))
-        })
-    }
-}
+        .catch((error) => {
+          console.error("Delete error:", error);
+          dispatch(deleteError(error));
+        });
+    };
+  };

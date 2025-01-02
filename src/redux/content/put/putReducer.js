@@ -6,18 +6,30 @@ import {
 
 const initialState = {
   loading: false,
-  data: null,
+  data: [], // Assuming an array of items in your state
   error: null,
 };
 
-const editContent = (state = initialState, action) => {
+const editContentReducer = (state = initialState, action) => {
   switch (action.type) {
     case EDIT_CONTENT_REQUEST:
       return { ...state, loading: true };
     case EDIT_CONTENT_SUCCESS:
-      return { ...state, loading: false, data: action.payload };
+      // If the payload is an array of items, just replace the data.
+      // If it's a single item, replace or update the item in the existing data array.
+      return {
+        ...state,
+        loading: false,
+        data: Array.isArray(action.payload)
+          ? action.payload
+          : state.data.map((item) =>
+              item.id === action.payload.id ? action.payload : item
+            ),
+      };
     case EDIT_CONTENT_ERROR:
       return { ...state, loading: false, error: action.payload };
+    default:
+      return state;
   }
 };
 
