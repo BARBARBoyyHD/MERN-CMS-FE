@@ -9,7 +9,6 @@ const EditContentPages = () => {
         <NavbarAdmin />
       </header>
       <div className="mt-[74px]">
-        <h1>this is edit content</h1>
         <EditContentForm />
       </div>
     </div>
